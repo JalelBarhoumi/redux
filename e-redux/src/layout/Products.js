@@ -87,28 +87,11 @@ console.log(res)
   const [name1, setName1] = useState(currentProduct?.name1);
   const [price1, setPrice1] = useState(0);
   const [type1, setType1] = useState("");
-
-  const [filepic, setFilepic] = useState(null)
-
-
-
-  const handleChange = (event) => {
-    setCurrentProduct({
-      ...currentProduct,
-      [event.target.name]: event.target.value
-    });
-    console.log(currentProduct)
-  };
-
-
-
-
   const handleClose = () => setShowModal(false);
   const handleClose2 = () => setShowModal2(false);
-
-
+ 
   const handleAdd =async() => {
-    // Add your code here to handle the add product functionality
+   
     try {
 
         const data={
@@ -132,11 +115,6 @@ console.log(res)
       };
  
 
-
-
-
-
-
   function handleopenwidget(){
   
     var myWidget = window.cloudinary.createUploadWidget({
@@ -144,20 +122,14 @@ console.log(res)
       uploadPreset: 'xyplyxtc'}, (error, result) => { 
         if (!error && result && result.event === "success") { 
           console.log('Done! Here is the image info: ', result.info); 
-  
-          // setQuestionimage({url:result.info.url,public_id:result.info.public_id})
           setImage(result.info.url)
-  
-  
-  
         }
       }
     )
     myWidget.open();
   }
 
-  // console.log(image)
-
+  
 
   return (
     <div className="container">
@@ -165,6 +137,7 @@ console.log(res)
     <button variant="primary" className="add-button" onClick={() => handleAddModal()}>
     Ajouter Produit
   </button>
+  
   </div>
     <div className="container-fluid product-list d-flex align-items-center">
        
@@ -193,6 +166,9 @@ console.log(res)
             </tr>
           ))}
         </tbody>
+        <a href="/"> 
+    Retourner vers page d'acceuil
+ </a>
       </table>
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>

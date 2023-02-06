@@ -7,7 +7,6 @@ import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
-
 import { useState, useEffect } from "react";
 import './ProductList.css';
 import { PanierContext } from '../PanierContext';
@@ -18,24 +17,18 @@ import axios from 'axios';
 
 export default function Navbar({total,setTotal}) {
 
-    const {user} =useContext(AuthContext)
+    const {} =useContext(AuthContext)
 
     const SavePanier =async() => {
-        // Add your code here to handle the add product functionality
+        
         try {
-    
             const data={
-               
                 total:total,
                 userId:localStorage.getItem('user'),
                 produits:realproducts
             }
-            console.log(data)
-           
-            await axios.post(`http://localhost:8080/basket`, data).then((res)=>{
-        console.log(res)
-        
-            });
+         
+            await axios.post(`http://localhost:8080/basket`, data).then((res)=>{ });
            
             handleClose(true);
           } catch (error) {
@@ -45,41 +38,30 @@ export default function Navbar({total,setTotal}) {
           };
 
 
-  const {panierproducts,setPanierproducts} =useContext(PanierContext);
+const {panierproducts,setPanierproducts} =useContext(PanierContext);
 const [realproducts,setRealproducts]=useState([])
-
 const array=panierproducts?.slice(1)
 
-    const handleOpenPanier = () =>{
+const handleOpenPanier = () =>{
         setShowModal(true)
     setRealproducts(array)  
     }
 
-console.log(realproducts)
-
-
   const [showModal, setShowModal] = useState(false);
-
   const handleClose = () => setShowModal(false);
 
 const navigate = useNavigate()
 
-    const handleClick = () => {
+const handleClick = () => {
         navigate("/login");
-    };
+    };    
 
 
-    function removeproduct(id){
+function removeproduct(id){
         setRealproducts(prevProducts => prevProducts.filter(product => product.id !== id))
         setPanierproducts(prevProducts => prevProducts.filter(product => product.id !== id))
         
-    }
-
-
-
-
-
-
+    }    
   function handleChange(id, direction) {
     const updatedProducts = realproducts.map(product => {
       if (product.id === id) {
@@ -101,6 +83,9 @@ const navigate = useNavigate()
   useEffect(() => {
     calculateTotal();
   }, [realproducts]);
+  const handleClick1 = () => {
+    navigate("/products");
+};
 
     return (
         <div >
@@ -110,6 +95,9 @@ const navigate = useNavigate()
                         <FontAwesomeIcon icon={faShoppingCart} /> E-Redux
                     </a>
                     <form className="d-flex" role="search">
+                    <button className="btn btn-success " type="button" onClick={handleClick1}>
+                            <FontAwesomeIcon icon={faShoppingCart} />Nos Produits
+                        </button>
                         <input className="form-control mr-2" type="search" placeholder="Search" aria-label="Search"></input>
                         <button className="btn btn-danger mx-2" type="button" onClick={handleOpenPanier}>
                             <FontAwesomeIcon icon={faShoppingBasket} />
